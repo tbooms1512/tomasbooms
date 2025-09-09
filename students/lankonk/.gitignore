@@ -1,4 +1,1 @@
-.vscode/
-*.env
-.temp
-__pycache__
+.vscode/ -
