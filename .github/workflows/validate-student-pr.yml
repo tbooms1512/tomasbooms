@@ -13,25 +13,52 @@ jobs:
         if: ${{ github.actor == 'uumami' }}
         run: |
           echo "🚨 Repo owner detected (uumami). Skipping validation."
-          exit 0
 
       - name: Checkout repository
+        if: ${{ github.actor != 'uumami' }}
         uses: actions/checkout@v4
 
       - name: Get list of changed files
+        if: ${{ github.actor != 'uumami' }}
         id: changes
         run: |
-          echo "CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)" >> $GITHUB_ENV
+          # Fetch the base branch to ensure we have the reference
+          git fetch origin ${{ github.base_ref }}
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "📁 Files changed in this PR:"
+          echo "$CHANGED_FILES" | sed 's/^/  - /'
 
       - name: Validate changes are only in student folder
+        if: ${{ github.actor != 'uumami' }}
         run: |
+          echo "🔍 Validating file locations for student: ${{ github.actor }}"
+          INVALID_COUNT=0
+          VALID_COUNT=0
+          
           for file in $CHANGED_FILES; do
             if [[ ! "$file" =~ ^students/${{ github.actor }}/ ]]; then
               echo "❌ Invalid change detected: $file"
-              echo "You may only modify files inside students/${{ github.actor }}/"
-              exit 1
+              ((INVALID_COUNT++))
+            else
+              echo "✅ Valid change: $file"
+              ((VALID_COUNT++))
             fi
           done
+          
+          if [ $INVALID_COUNT -gt 0 ]; then
+            echo ""
+            echo "❌ Found $INVALID_COUNT invalid file(s) outside your student folder."
+            echo "💡 You may only modify files inside students/${{ github.actor }}/"
+            exit 1
+          fi
+          
+          echo ""
+          echo "✅ All $VALID_COUNT file(s) are in the correct location."
 
       - name: Report success
-        run: echo "✅ All changes are valid (only inside students/${{ github.actor}}/)"
+        if: ${{ github.actor != 'uumami' }}
+        run: |
+          echo "🎉 Validation completed successfully!"
+          echo "✅ All changes are valid (only inside students/${{ github.actor }}/)"
+          echo "📊 Ready for professor review."
