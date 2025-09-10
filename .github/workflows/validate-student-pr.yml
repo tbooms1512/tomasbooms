@@ -1,0 +1,37 @@
+name: Validate Student PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Skip if repo owner is the PR author
+        if: ${{ github.actor == 'uumami' }}
+        run: |
+          echo "🚨 Repo owner detected (uumami). Skipping validation."
+          exit 0
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get list of changed files
+        id: changes
+        run: |
+          echo "CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)" >> $GITHUB_ENV
+
+      - name: Validate changes are only in student folder
+        run: |
+          for file in $CHANGED_FILES; do
+            if [[ ! "$file" =~ ^students/${{ github.actor }}/ ]]; then
+              echo "❌ Invalid change detected: $file"
+              echo "You may only modify files inside students/${{ github.actor }}/"
+              exit 1
+            fi
+          done
+
+      - name: Report success
+        run: echo "✅ All changes are valid (only inside students/${{ github.actor}}/)"
