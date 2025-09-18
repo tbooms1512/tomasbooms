@@ -1,0 +1,20 @@
+nivel 0:
+sol: foo
+desc: unica secuencia de texto que coincide.
+
+nivel 1:
+sol: k$
+desc: matches terminan con k.
+
+nivel 2:
+sol: fu(?!.)
+desc: fu seguido de "ningun otro caracter".
+
+nivel 3:
+sol: ^[abcdef]+$
+desc: Solo palabras que usen únicamente las letras a, b, c, d, e y f.
+
+nivel 4:
+sol: (...).*\1
+desc: Las palabras que no coinciden no tienen ninguna secuencia de 3 caracteres consecutivos que se repita en otra parte de la palabra.
+
