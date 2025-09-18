@@ -18,3 +18,20 @@ nivel 4:
 sol: (...).*\1
 desc: Las palabras que no coinciden no tienen ninguna secuencia de 3 caracteres consecutivos que se repita en otra parte de la palabra.
 
+nivel 5: 
+sol: ^(?!(.)+\1)|ef
+desc: Esta regex coincide con cadenas que NO tienen letras repetidas consecutivamente (como "aa", "bb", etc.) O que contengan las letras "ef".
+
+nivel 6: 
+sol: ^(.)[^p].*\1$
+desc: Busca palabras que empiecen y terminen con la misma letra, pero que el segundo carácter NO sea "p".
+
+nivel 7: 
+sol: ^(?!(xx+)\1+$)
+desc; rechaza números que sean potencias de otros números.
+
+nivel 8:
+sol: (.)(.\1){3}
+desc: letra aparece en posiciones específicas: primera, tercera, quinta y séptima posición.
+
+
