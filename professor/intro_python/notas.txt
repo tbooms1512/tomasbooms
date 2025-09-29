@@ -1,0 +1,36 @@
+# Notas Intro Python — <ESCRIBE_TU_NOMBRE>
+
+Sección A — Comando para invocar Python en mi máquina
+- Usaré el comando: <python3 o python>
+
+Sección B — ¿Qué es el REPL (en mis palabras)?
+- <explica en 1–2 líneas qué es y para qué lo usarías>
+
+Sección C — Script mínimo `hola.py`: qué contiene y qué vi al ejecutarlo
+- Contiene:
+  1) print de saludo
+  2) variable con operación aritmética + print del resultado
+  3) función simple + print de la llamada
+- Al ejecutar, vi: <resume brevemente la salida>
+
+Sección D — Banderas probadas y observaciones
+- -h: <qué mostró>
+- -V: <versión exacta>
+- -c: <qué hizo y qué mostró>
+- -i: <qué pasó y qué quedó disponible>
+- -m this: <qué ocurrió>
+- -m antigravity: <qué ocurrió>
+
+Sección E — __pycache__ y .pyc (bytecode)
+- ¿Cuándo aparece?: <después de ejecutar un script, etc.>
+- ¿Qué contiene?: <archivos .pyc con nombre de módulo y versión>
+- Con -B: <no se crea __pycache__/ (no escribe .pyc)>
+- Con -O: <crea .pyc optimizados; asserts no se evalúan>
+- Con -OO: <pyc optimizados; pueden eliminarse docstrings>
+
+Sección F — dis (bytecode)
+- Comando usado: <python3 -c "import dis, hola; dis.dis(hola)">
+- Lo que entendí: <menciona 1–2 instrucciones y qué implica>
+
+Sección G — Conclusión corta
+- <1–3 líneas con tu reflexión principal>
