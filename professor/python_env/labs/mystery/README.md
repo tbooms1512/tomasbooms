@@ -34,4 +34,10 @@ Entrega: crea tu rama, confirma tus cambios dentro de `students/{tu_carpeta}/pyt
 
 Happy debugging!
 
+---
+
+Referencia y entrega
+- Para repasar entornos, PATH, `venv`, `pip` y `uv`, vuelve a `professor/python_env/README.md` (o a tu copia en `students/{tu_carpeta}/python_env/`).
+- La entrega es por Pull Request desde tu carpeta de estudiante; sigue el flujo de Git/GitHub indicado en el README principal.
+
 
