@@ -264,7 +264,7 @@ sequenceDiagram
     SH->>PY: crea estructura `.venv`
     U->>SH: `source .venv/bin/activate`
     SH-->>U: PATH prioriza `.venv/bin`
-    U->>SH: `pip install paquete`
+    U->>SH: `pip install requests`
     U->>SH: `pip freeze > requirements.txt`
     U->>SH: (en otra máquina) `pip install -r requirements.txt`
 ```
@@ -323,6 +323,27 @@ El prompt vuelve a la normalidad y `which python` apunta al Python del sistema.
 
 ---
 
+Ejemplos concretos para ejercicios
+
+Usa el `requirements.txt` mínimo provisto en `professor/python_env/requirements.txt` (cópialo a tu carpeta de trabajo) para probar los flujos con `requests` y `rich`.
+
+```bash
+# copia para trabajar localmente
+cp professor/python_env/requirements.txt .
+
+# con pip
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python -c "import requests, rich; print(requests.__version__)"
+
+# con uv
+uv venv .venv && source .venv/bin/activate
+uv pip install -r requirements.txt
+python -c "import requests, rich; print(requests.__version__)"
+```
+
+---
+
 ### Freeze vs. Lock: diferencias, cuándo y cómo (ejercicio)
 
 - `freeze` (captura del estado actual):
@@ -359,7 +380,7 @@ Ejercicio guiado:
 
 ```bash
 # Parte A: freeze
-uv pip install httpx
+uv pip install requests
 uv pip freeze > requirements.txt
 
 # Parte B: limpiar y reproducir
@@ -367,7 +388,7 @@ deactivate || true
 rm -rf .venv
 uv venv .venv && source .venv/bin/activate
 uv pip install -r requirements.txt
-python -c "import httpx; print('httpx=', httpx.__version__)"
+python -c "import requests; print('requests=', requests.__version__)"
 ```
 
 Objetivo: observar que el entorno reproducido funciona igual.
@@ -554,3 +575,16 @@ uv pip freeze > requirements.txt
 # instalar desde requirements
 uv pip install -r requirements.txt
 ```
+
+### 14) Entrega (obligatoria por Pull Request)
+ 
+ 1) Asegúrate de haber copiado el material a tu carpeta de estudiante:
+ 
+ 4) Verifica en el PR que tu bitácora contiene: configuración de editor, extensiones, selección de intérprete y captura del flujo Git.
+ 
+ ---
+ 
+ Tarea final evaluada (50 puntos)
+ - Debes realizar el reto Docker + uv descrito en `professor/python_env/labs/mystery/README.md` (o tu copia en `students/{tu_carpeta}/python_env/labs/mystery/README.md`).
+ - Léelo con el mismo rigor que el resto de esta guía. Es una parte central de la evaluación.
+ - La entrega se hace por Pull Request desde tu carpeta de estudiante, como se indica arriba.
